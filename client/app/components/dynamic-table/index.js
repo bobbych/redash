@@ -2,7 +2,9 @@ import { sortBy } from 'underscore';
 import template from './dynamic-table.html';
 import './dynamic-table.css';
 
-function DynamicTable() {
+function DynamicTable($sanitize) {
+  'ngInject';
+
   this.itemsPerPage = this.count = 15;
   this.page = 1;
   this.rowsCount = 0;
@@ -33,13 +35,15 @@ function DynamicTable() {
     }
 
     if (this.orderByField) {
-      this.allRows = sortBy(this.allRows, this.orderByField);
+      this.allRows = sortBy(this.allRows, this.orderByField.name);
       if (this.orderByReverse) {
         this.allRows = this.allRows.reverse();
       }
       this.pageChanged();
     }
   };
+
+  this.sanitize = value => $sanitize(value);
 
   this.sortIcon = (column) => {
     if (column !== this.orderByField) {
