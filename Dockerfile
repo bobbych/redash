@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 
 # Ubuntu packages
 RUN apt-get update && \
@@ -17,7 +17,9 @@ RUN useradd --system --comment " " --create-home redash
 RUN pip install -U setuptools==23.1.0 && \
   pip install supervisor==3.1.2
 
-COPY . /opt/redash/current
+COPY redash_snowflake.tar.gz /tmp
+RUN mkdir -p /opt/redash/current
+RUN tar xfvz /tmp/redash_snowflake.tar.gz -C /opt/redash/current
 RUN chown -R redash /opt/redash/current
 
 # Setting working directory
