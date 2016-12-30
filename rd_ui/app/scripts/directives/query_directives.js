@@ -126,7 +126,7 @@
                 if (newSchema !== oldSchema) {
                   var tokensCount = _.reduce(newSchema, function(totalLength, table) { return totalLength + table.columns.length }, 0);
                   // If there are too many tokens we disable live autocomplete, as it makes typing slower.
-                  if (tokensCount > 5000) {
+                  if (tokensCount > 50000) {
                     editor.setOption('enableLiveAutocompletion', false);
                   } else {
                     editor.setOption('enableLiveAutocompletion', true);
